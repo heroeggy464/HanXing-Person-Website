@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试登录</title>
+</head>
+<body>
+    <h1>测试页面</h1>
+    <button onclick="testLogin()" style="font-size:24px;padding:20px;">
+        🚀 测试登录
+    </button>
+    <p id="result"></p>
+
+    <script>
+        // 你的配置
+        const CLIENT_ID = 'Ov23li2YlohHqBrWXaRk';
+        const REDIRECT_URI = 'https://heroeggy464.github.io/HanXing-Person-Website/library/admin.html';
+
+        function testLogin() {
+            document.getElementById('result').innerHTML = '⏳ 正在跳转...';
+            
+            const authUrl = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=user:email,repo`;
+            
+            console.log('跳转地址:', authUrl);
+            document.getElementById('result').innerHTML = '📤 跳转地址已生成，正在跳转...';
+            
+            // 延迟一下再跳转，方便看到信息
+            setTimeout(() => {
+                window.location.href = authUrl;
+            }, 500);
+        }
+
+        // 页面加载时显示信息
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('result').innerHTML = '✅ 页面已加载，点击按钮测试';
+        });
+    </script>
+</body>
+</html>
