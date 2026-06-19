@@ -38,6 +38,473 @@
             min-height: 100vh;
         }
 
+        /* 左侧导航栏样式 - 调整为与个人主页一致的主色渐变 */
+        .sidebar {
+            width: 22%;
+            background: linear-gradient(180deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: var(--transition);
+            z-index: 1000;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 30px 20px 20px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.15);
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            display: none;
+        }
+
+        .nav-menu {
+            padding: 20px 0;
+            flex-grow: 1;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 15px 25px;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+            border-left-color: white;
+            padding-left: 30px;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-item:hover::before {
+            left: 100%;
+        }
+
+        /* 社交媒体文字链接 - 颜色适配 */
+        .social-text-links {
+            padding: 25px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: auto;
+            background-color: rgba(0, 0, 0, 0.15);
+        }
+
+        .social-text-links a {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        .social-text-links a:hover {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        .social-text-links a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* 右侧内容区域 - 标题颜色统一 */
+        .content {
+            width: 78%;
+            margin-left: 22%;
+            padding: 40px;
+            background-color: transparent;
+        }
+
+        .content-header {
+            margin-bottom: 50px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .content-header:hover {
+            box-shadow: var(--hover-shadow);
+        }
+
+        .main-title {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 10px;
+            position: relative;
+            padding-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .main-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #5dade2);
+            border-radius: 2px;
+        }
+
+        .author-info {
+            color: var(--light-text);
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section:hover {
+            box-shadow: var(--hover-shadow);
+            transform: translateY(-5px);
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, #3498db, #5dade2);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+        }
+
+        .download-link {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+
+        .download-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 5px;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        .download-link a:hover {
+            color: #2980b9;
+            background-color: rgba(52, 152, 219, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .download-link a i {
+            margin-right: 6px;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+            margin: 30px 0;
+        }
+
+        /* 响应式设计 */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .menu-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .sidebar {
+                width: 280px;
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .content {
+                width: 100%;
+                margin-left: 0;
+                padding: 20px;
+                padding-top: 70px;
+            }
+
+            .main-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+            
+            .content-header, .section {
+                padding: 20px;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+            color: var(--light-text);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .section:nth-child(2) { animation-delay: 0.1s; }
+        .section:nth-child(3) { animation-delay: 0.2s; }
+        .section:nth-child(4) { animation-delay: 0.3s; }
+        .section:nth-child(5) { animation-delay: 0.4s; }
+        .section:nth-child(6) { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- 左侧导航栏 -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>网站导航</h2>
+            </div>
+            <div class="nav-menu">
+                <a href="#section1" class="nav-item"><i class="fas fa-folder"></i> 通用资源</a>
+                <a href="#section2" class="nav-item active"><i class="fas fa-gamepad"></i> MC教程1</a>
+                <a href="#section3" class="nav-item"><i class="fas fa-folder"></i> 第二部分</a>
+                <a href="#section4" class="nav-item"><i class="fas fa-folder"></i> 第三部分</a>
+                <a href="#section5" class="nav-item"><i class="fas fa-folder"></i> 第四部分</a>
+                <a href="#section6" class="nav-item"><i class="fas fa-folder"></i> 第五部分</a>
+            </div>
+            
+            <div class="social-text-links">
+                <a href="https://www.douyin.com/user/MS4wLjABAAAA6W19rIp95N8KRKXt5BnKxieObtSAxEZLucKNTJvb-HM?from_tab_name=main" target="_blank">
+                    <i class="fab fa-tiktok"></i> 抖音
+                </a>
+                <a href="https://space.bilibili.com/3493118680762975?spm_id_from=333.1007.0.0" target="_blank">
+                    <i class="fab fa-bilibili"></i> B站
+                </a>
+                <a href="https://github.com/heroeggy464/HanXing-Repository" target="_blank">
+                    <i class="fab fa-github"></i> Github仓库
+                </a>
+            </div>
+        </nav>
+
+        <!-- 右侧内容区域 -->
+        <main class="content">
+            <div class="content-header">
+                <h1 class="main-title">寒星的资源库</h1>
+                <p class="author-info">作者：heroeggy464</p>
+                <p class="author-info">分享各类实用资源与教程</p>
+            </div>
+
+            <section id="section1" class="section">
+                <h2 class="section-title">通用资源</h2>
+                <p>大部分视频中都会出现的资源</p>
+                <div class="download-link">
+                    <i class="fas fa-external-link-alt"></i> 字体：<a href="https://github.com/refinec/PingFangSC/blob/main/ttf/PingFangSC-Regular.ttf" target="_blank">PingFang SC（苹方字体Github仓库）</a><a href="https://developer-oss.lanrar.com/file/?UzVTbVloBTRWXwA4U2ZUOAY5ADgADwphBWxSM1FLUzNUOlVlWVdUQwZ9UUoGN104BjUAcAIwCycKeQd1U2lXcFM1U21ZaAU0Vl8AP1NjVGgGbgAzAG8KOQU3UmxRNFNrVGNVJFliVHMGbVE2BmJdZQZuADcCZAs/CjkHJ1N/VyZTblM2WTQFY1Y1AHlTNlRkBnMANQBuCicFNFIxUWxTMVQxVTZZPVRkBjNRYgZgXW0GPwA0Am0Lawo9BzVTP1dlU2RTZ1kwBWhWYwAyU2VUYgZlADYAPAo8BSxSIFF5UzRUclV3WXdUZQYiUW4GNl1hBm8AMAJtCzgKPwcxUz1XcFMnU21ZaQU0VmYAa1M2VGIGagA3AG8KOAUzUm1RNFNgVHpVLFkiVGYGPFFwBm9dbAZ6AHACLQt+CjAHMFM4V2BTYVM0WTQFYVY4AG5TNlRzBikAbAAvCjUFM1JkUTtTfFRmVTBZMlQuBmFRNQZlXXIGbQAxAmgLJworB2VTYFchUz1TW1lnBTpWPQBmUylUcwYoAHwALwptBV1SIVFsU29UZA==" target="_blank">PingFang SC（苹方字体直链下载）</a><br>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="section2" class="section">
+                <h2 class="section-title">MC教程1</h2>
+                <p>这里提供Minecraft相关的教程和资源链接。</p>
+                <div class="download-link">
+                    <i class="fas fa-external-link-alt"></i> Littleskin：<a href="https://littleskin.cn" target="_blank">littleskin.cn</a><br>
+                    <i class="fas fa-external-link-alt"></i> Xbox：<a href="https://xbox.com" target="_blank">xbox.com</a>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="section3" class="section">
+                <h2 class="section-title">资源分享</h2>
+                <p>这里将分享各类实用工具和资源。</p>
+                <div class="download-link">
+                    <i class="fas fa-download"></i> 下载链接：<a href="https://example.com/frontend-tech.zip" target="_blank">https://example.com/frontend-tech.zip</a>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="section4" class="section">
+                <h2 class="section-title">开发工具</h2>
+                <p>这里提供开发相关的工具和资源。</p>
+                <div class="download-link">
+                    <i class="fas fa-download"></i> 下载链接：<a href="https://example.com/backend-tech.zip" target="_blank">https://example.com/backend-tech.zip</a>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="section5" class="section">
+                <h2 class="section-title">设计资源</h2>
+                <p>这里分享设计相关的素材和工具。</p>
+                <div class="download-link">
+                    <i class="fas fa-download"></i> 下载链接：<a href="https://example.com/project-management.zip" target="_blank">https://example.com/project-management.zip</a>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="section6" class="section">
+                <h2 class="section-title">学习资料</h2>
+                <p>这里提供各类学习资料和教程。</p>
+                <div class="download-link">
+                    <i class="fas fa-download"></i> 下载链接：<a href="https://example.com/industry-trends.zip" target="_blank">https://example.com/industry-trends.zip</a>
+                </div>
+            </section>
+
+            <footer>
+                作者: heroeggy464 | 寒星的资源库 © 2025
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const sections = document.querySelectorAll('.section');
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+
+            menuToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+            });
+
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+            });
+
+            window.addEventListener('scroll', function() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= (sectionTop - 100)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('href').slice(1) === current) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>            display: flex;
+            min-height: 100vh;
+        }
+
         /* 左侧导航栏样式 */
         .sidebar {
             width: 22%;
