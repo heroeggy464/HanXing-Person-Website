@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>heroeggy464 · 个人主页</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== CSS 变量（浅色/深色） ===== */
+        :root {
+            /* 浅色模式 (默认) */
+            --primary-color: #3498db;
+            --primary-gradient: linear-gradient(135deg, #3498db, #5dade2);
+            --secondary-color: #2c3e50;
+            --neutral-color: #ecf0f1;
+            --text-color: #1e2a3a;
+            --light-text: #5a6c7d;
+            --border-color: #dce4ec;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --hover-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            --navbar-bg: linear-gradient(135deg, #3498db, #5dade2);
+            --footer-bg: #ffffff;
+            --btn-outline-border: #3498db;
+            --btn-outline-text: #3498db;
+            --btn-outline-hover-bg: rgba(52, 152, 219, 0.1);
+            --title-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08);
+            --title-underline: linear-gradient(90deg, #3498db, #5dade2);
+            --icon-color: rgba(255, 255, 255, 0.85);
+            --icon-hover: #ffffff;
+        }
+
+        /* 深色模式 */
+        [data-theme="dark"] {
+            --primary-color: #5dade2;
+            --primary-gradient: linear-gradient(135deg, #2c6b9e, #4a8ec4);
+            --secondary-color: #e0e8f0;
+            --neutral-color: #2d3b4a;
+            --text-color: #e6edf5;
+            --light-text: #9ab0c4;
+            --border-color: #3e5062;
+            --bg-gradient: linear-gradient(135deg, #1a2632 0%, #25323f 100%);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            --hover-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            --navbar-bg: linear-gradient(135deg, #1f3a52, #2a4d6a);
+            --footer-bg: #1e2b38;
+            --btn-outline-border: #5dade2;
+            --btn-outline-text: #7fc1f0;
+            --btn-outline-hover-bg: rgba(93, 173, 226, 0.15);
+            --title-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+            --title-underline: linear-gradient(90deg, #5dade2, #7fc1f0);
+            --icon-color: rgba(220, 235, 250, 0.8);
+            --icon-hover: #ffffff;
+        }
+
+        /* ===== 重置 & 基础 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background 0.3s ease, color 0.2s ease;
+        }
+
+        /* ===== 导航栏 ===== */
+        .navbar {
+            background: var(--navbar-bg);
+            color: white;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 0.3px;
+        }
+
+        /* 右侧控制组：社交图标 + 切换按钮 */
+        .navbar-controls {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-icons a {
+            color: var(--icon-color);
+            font-size: 1.3rem;
+            transition: all 0.25s ease;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            color: var(--icon-hover);
+            transform: translateY(-3px);
+        }
+
+        /* 切换按钮组 */
+        .toggle-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-left: 6px;
+        }
+
+        .toggle-btn {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .toggle-btn i {
+            font-size: 0.9rem;
+        }
+
+        .toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.22);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .toggle-btn.active {
+            background: rgba(255, 255, 255, 0.25);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        /* ===== 主内容 ===== */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px 40px;
+            text-align: center;
+        }
+
+        .main-title {
+            font-size: 4.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 40px;
+            text-shadow: var(--title-shadow);
+            position: relative;
+            padding-bottom: 20px;
+            transition: color 0.2s ease, text-shadow 0.2s ease;
+        }
+
+        .main-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 5px;
+            background: var(--title-underline);
+            border-radius: 3px;
+            transition: background 0.3s ease;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            box-shadow: var(--card-shadow);
+            border: none;
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .btn-solid {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+        }
+
+        .btn-solid:hover {
+            background: linear-gradient(135deg, #2980b9, #3498db);
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--btn-outline-text);
+            border: 2px solid var(--btn-outline-border);
+        }
+
+        .btn-outline:hover {
+            background: var(--btn-outline-hover-bg);
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        /* ===== 页脚 ===== */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--light-text);
+            font-size: 0.9rem;
+            background: var(--footer-bg);
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+            transition: background 0.3s ease, color 0.2s ease;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            .navbar-controls {
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                gap: 12px;
+            }
+            .toggle-group {
+                margin-left: 0;
+            }
+            .main-title {
+                font-size: 3rem;
+            }
+            .button-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .btn {
+                padding: 12px 30px;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            .social-icons {
+                gap: 15px;
+            }
+            .social-icons a {
+                font-size: 1.1rem;
+            }
+            .toggle-btn {
+                font-size: 0.7rem;
+                padding: 4px 10px;
+            }
+        }
+
+        /* ===== 动画 ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .main-title {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        .button-container {
+            animation: fadeInUp 1s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== 导航栏 ===== -->
+    <nav class="navbar">
+        <div class="navbar-brand" data-i18n="brand">heroeggy464的个人主页</div>
+        <div class="navbar-controls">
+            <div class="social-icons">
+                <a href="https://www.douyin.com/user/MS4wLjABAAAA6W19rIp95N8KRKXt5BnKxieObtSAxEZLucKNTJvb-HM?from_tab_name=main" target="_blank" title="抖音 / Douyin">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                <a href="https://space.bilibili.com/3493118680762975?spm_id_from=333.1007.0.0" target="_blank" title="B站 / Bilibili">
+                    <i class="fab fa-bilibili"></i>
+                </a>
+                <a href="https://github.com/heroeggy464/HanXing-Repository" target="_blank" title="GitHub 仓库">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+
+            <!-- 切换按钮组 -->
+            <div class="toggle-group">
+                <!-- 语言切换 -->
+                <button id="langToggle" class="toggle-btn" title="切换语言 / Toggle language">
+                    <i class="fas fa-globe"></i> <span id="langLabel">中文</span>
+                </button>
+                <!-- 深色/浅色切换 -->
+                <button id="themeToggle" class="toggle-btn" title="切换深色/浅色模式">
+                    <i class="fas fa-moon"></i> <span id="themeLabel">深色</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== 主内容 ===== -->
+    <main class="main-content">
+        <h1 class="main-title" data-i18n="title">heroeggy464</h1>
+        <div class="button-container">
+            <a href="library.html" class="btn btn-solid" data-i18n="btnLibrary">资源库</a>
+            <a href="https://www.douyin.com/user/MS4wLjABAAAA6W19rIp95N8KRKXt5BnKxieObtSAxEZLucKNTJvb-HM?from_tab_name=main" target="_blank" class="btn btn-outline" data-i18n="btnDouyin">抖音</a>
+        </div>
+    </main>
+
+    <!-- ===== 页脚 ===== -->
+    <footer>
+        <span data-i18n="footer">作者: heroeggy464 | 个人主页 © 2026</span>
+    </footer>
+
+    <script>
+        (function() {
+            "use strict";
+
+            // ----- 1. DOM 元素 -----
+            const themeToggle = document.getElementById('themeToggle');
+            const themeLabel = document.getElementById('themeLabel');
+            const langToggle = document.getElementById('langToggle');
+            const langLabel = document.getElementById('langLabel');
+
+            // 所有带 data-i18n 的元素
+            const i18nElements = document.querySelectorAll('[data-i18n]');
+
+            // ----- 2. 多语言词典 (包含主题按钮文字) -----
+            const translations = {
+                zh: {
+                    brand: 'heroeggy464的个人主页',
+                    title: 'heroeggy464',
+                    btnLibrary: '资源库',
+                    btnDouyin: '抖音',
+                    footer: '作者: heroeggy464 | 个人主页 © 2026',
+                    themeDark: '深色',
+                    themeLight: '浅色'
+                },
+                en: {
+                    brand: "heroeggy464's Personal Homepage",
+                    title: 'heroeggy464',
+                    btnLibrary: 'Library',
+                    btnDouyin: 'Douyin',
+                    footer: 'Author: heroeggy464 | Personal Homepage © 2026',
+                    themeDark: 'Dark',
+                    themeLight: 'Light'
+                }
+            };
+
+            // ----- 3. 当前语言 (默认中文) -----
+            let currentLang = 'zh';
+
+            // ----- 4. 获取主题偏好 -----
+            function getPreferredTheme() {
+                const stored = localStorage.getItem('theme');
+                if (stored === 'dark' || stored === 'light') return stored;
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+
+            // ----- 5. 当前主题 -----
+            let currentTheme = getPreferredTheme();
+
+            // ----- 6. 更新主题按钮文字 (根据当前主题和语言) -----
+            function updateThemeLabel(theme, lang) {
+                const dict = translations[lang] || translations.zh;
+                const isDark = theme === 'dark';
+                themeLabel.textContent = isDark ? dict.themeDark : dict.themeLight;
+                const icon = themeToggle.querySelector('i');
+                if (icon) {
+                    icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+                }
+            }
+
+            // ----- 7. 应用语言 (同时刷新主题按钮文字) -----
+            function applyLanguage(lang) {
+                const dict = translations[lang] || translations.zh;
+                i18nElements.forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (dict[key] !== undefined) {
+                        el.textContent = dict[key];
+                    }
+                });
+                langLabel.textContent = lang === 'zh' ? '中文' : 'English';
+                document.documentElement.setAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
+                // 刷新主题按钮文字
+                updateThemeLabel(currentTheme, lang);
+                localStorage.setItem('preferredLang', lang);
+            }
+
+            // ----- 8. 切换语言 -----
+            function toggleLanguage() {
+                const nextLang = currentLang === 'zh' ? 'en' : 'zh';
+                currentLang = nextLang;
+                applyLanguage(currentLang);
+            }
+
+            // ----- 9. 应用主题 -----
+            function applyTheme(theme) {
+                const isDark = theme === 'dark';
+                document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+                updateThemeLabel(theme, currentLang);
+                localStorage.setItem('theme', theme);
+                currentTheme = theme;
+            }
+
+            // ----- 10. 切换主题 -----
+            function toggleTheme() {
+                const next = currentTheme === 'dark' ? 'light' : 'dark';
+                applyTheme(next);
+            }
+
+            // ----- 11. 初始化 -----
+            function init() {
+                // 读取语言偏好
+                const savedLang = localStorage.getItem('preferredLang');
+                if (savedLang === 'en' || savedLang === 'zh') {
+                    currentLang = savedLang;
+                } else {
+                    currentLang = 'zh';
+                }
+
+                // 先应用语言 (内部会调用 updateThemeLabel)
+                applyLanguage(currentLang);
+
+                // 再应用主题 (会再次调用 updateThemeLabel，保证一致)
+                const initialTheme = getPreferredTheme();
+                applyTheme(initialTheme);
+
+                // 事件绑定
+                themeToggle.addEventListener('click', toggleTheme);
+                langToggle.addEventListener('click', toggleLanguage);
+
+                // 监听系统主题变化
+                const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+                const handleSystemChange = (e) => {
+                    if (!localStorage.getItem('theme')) {
+                        const newTheme = e.matches ? 'dark' : 'light';
+                        applyTheme(newTheme);
+                    }
+                };
+                try {
+                    mediaQuery.addEventListener('change', handleSystemChange);
+                } catch (e) {
+                    mediaQuery.addListener(handleSystemChange);
+                }
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+
+        })();
+    </script>
+</body>
+</html>
