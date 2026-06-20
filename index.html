@@ -30,11 +30,620 @@
             --app-hover: rgba(255, 255, 255, 0.95);
             --app-border: #dce4ec;
             --app-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --nav-brand-gap: 10px;
         }
 
         [data-theme="dark"] {
             --primary-color: #5dade2;
             --primary-gradient: linear-gradient(135deg, #2c6b9e, #4a8ec4);
+            --text-color: #e6edf5;
+            --light-text: #9ab0c4;
+            --border-color: #3e5062;
+            --bg-gradient: linear-gradient(135deg, #1a2632 0%, #25323f 100%);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            --hover-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            --navbar-bg: linear-gradient(135deg, #1f3a52, #2a4d6a);
+            --footer-bg: #1e2b38;
+            --btn-outline-border: #5dade2;
+            --btn-outline-text: #7fc1f0;
+            --btn-outline-hover-bg: rgba(93, 173, 226, 0.15);
+            --title-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+            --title-underline: linear-gradient(90deg, #5dade2, #7fc1f0);
+            --icon-color: rgba(220, 235, 250, 0.8);
+            --icon-hover: #ffffff;
+            --app-bg: rgba(50, 65, 80, 0.8);
+            --app-hover: rgba(70, 90, 110, 0.95);
+            --app-border: #3e5062;
+            --app-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--bg-gradient);
+            display: flex;
+            flex-direction: column;
+            transition: background 0.3s ease, color 0.2s ease;
+        }
+
+        /* ===== 导航栏 ===== */
+        .navbar {
+            background: var(--navbar-bg);
+            color: white;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background 0.3s ease;
+            min-height: 60px;
+            width: 100%;
+            flex-shrink: 0;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--nav-brand-gap);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 0.3px;
+            transition: opacity 0.3s ease;
+            max-width: calc(100% - 180px);
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .navbar-brand img {
+            height: 36px;
+            width: 36px;
+            border-radius: 8px;
+            object-fit: cover;
+            display: block;
+            flex-shrink: 0;
+        }
+
+        .navbar-brand .brand-text {
+            display: inline;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .navbar-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 16px;
+            margin-right: 4px;
+        }
+
+        .social-icons a {
+            color: var(--icon-color);
+            font-size: 1.2rem;
+            transition: all 0.25s ease;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            color: var(--icon-hover);
+            transform: translateY(-2px);
+        }
+
+        .toggle-group {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .toggle-btn {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.85);
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            min-width: 36px;
+            justify-content: center;
+        }
+
+        .toggle-btn i {
+            font-size: 0.95rem;
+        }
+
+        .toggle-btn .btn-label {
+            display: inline-block;
+            margin-left: 2px;
+            font-size: 0.8rem;
+        }
+
+        .toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.22);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* ===== 主内容 ===== */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px 30px;
+            text-align: center;
+            transition: all 0.5s ease;
+            min-height: 60vh;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .hero-section {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            width: 100%;
+            max-width: 800px;
+            padding: 0 16px;
+        }
+
+        .hero-section.hidden {
+            opacity: 0;
+            transform: translateY(-20px);
+            pointer-events: none;
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+
+        .main-title {
+            font-size: 3.8rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            text-shadow: var(--title-shadow);
+            position: relative;
+            padding-bottom: 18px;
+            transition: color 0.2s ease, text-shadow 0.2s ease;
+        }
+
+        .main-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--title-underline);
+            border-radius: 3px;
+            transition: background 0.3s ease;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 24px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            box-shadow: var(--card-shadow);
+            border: none;
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .btn-solid {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+        }
+
+        .btn-solid:hover {
+            background: linear-gradient(135deg, #2980b9, #3498db);
+            transform: translateY(-4px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--btn-outline-text);
+            border: 2px solid var(--btn-outline-border);
+        }
+
+        .btn-outline:hover {
+            background: var(--btn-outline-hover-bg);
+            transform: translateY(-4px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        /* ===== 应用列表区域 ===== */
+        .app-section {
+            width: 100%;
+            max-width: 820px;
+            margin: 10px auto 20px;
+            padding: 0 16px;
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            pointer-events: none;
+            display: block !important;
+        }
+
+        .app-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .app-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .app-item {
+            display: flex;
+            align-items: center;
+            background: var(--app-bg);
+            backdrop-filter: blur(6px);
+            border-radius: 16px;
+            padding: 14px 18px;
+            box-shadow: var(--app-shadow);
+            border: 1px solid var(--app-border);
+            transition: all 0.25s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .app-item:hover {
+            background: var(--app-hover);
+            transform: translateY(-3px);
+            box-shadow: var(--hover-shadow);
+            border-color: var(--primary-color);
+        }
+
+        .app-icon {
+            flex: 0 0 52px;
+            width: 52px;
+            height: 52px;
+            margin-right: 16px;
+            border-radius: 14px;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: white;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+        }
+
+        .app-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 14px;
+            display: block;
+        }
+
+        .app-info {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            text-align: left;
+        }
+
+        .app-name {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-color);
+            letter-spacing: 0.2px;
+        }
+
+        .app-desc {
+            font-size: 0.85rem;
+            color: var(--light-text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .app-arrow {
+            flex: 0 0 20px;
+            color: var(--light-text);
+            font-size: 0.9rem;
+            transition: transform 0.2s ease;
+            margin-left: 6px;
+        }
+
+        .app-item:hover .app-arrow {
+            transform: translateX(4px);
+            color: var(--primary-color);
+        }
+
+        /* ===== 页脚 ===== */
+        footer {
+            text-align: center;
+            padding: 18px 20px;
+            color: var(--light-text);
+            font-size: 0.85rem;
+            background: var(--footer-bg);
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+            transition: background 0.3s ease, color 0.2s ease;
+            border-top: 1px solid var(--border-color);
+            margin-top: 10px;
+            width: 100%;
+            flex-shrink: 0;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 16px;
+                min-height: 52px;
+            }
+            .navbar-brand {
+                font-size: 0.95rem;
+                gap: 8px;
+                max-width: calc(100% - 160px);
+            }
+            .navbar-brand img {
+                height: 30px;
+                width: 30px;
+            }
+            .social-icons {
+                gap: 10px;
+            }
+            .social-icons a {
+                font-size: 1rem;
+            }
+            .toggle-btn {
+                padding: 4px 8px;
+                font-size: 0.75rem;
+                min-width: 30px;
+            }
+            .toggle-btn .btn-label {
+                display: none;
+            }
+            .toggle-btn i {
+                font-size: 0.9rem;
+            }
+            .main-title {
+                font-size: 2.8rem;
+            }
+            .button-container {
+                flex-direction: column;
+                gap: 14px;
+            }
+            .btn {
+                padding: 10px 24px;
+                font-size: 1rem;
+                min-width: 140px;
+            }
+            .app-item {
+                padding: 12px 14px;
+            }
+            .app-icon {
+                flex: 0 0 44px;
+                width: 44px;
+                height: 44px;
+                font-size: 1.3rem;
+                margin-right: 12px;
+            }
+            .app-name {
+                font-size: 0.95rem;
+            }
+            .app-desc {
+                font-size: 0.8rem;
+            }
+            .app-section {
+                padding: 0 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 8px 12px;
+                min-height: 46px;
+            }
+            .navbar-brand {
+                font-size: 0.85rem;
+                gap: 6px;
+                max-width: calc(100% - 130px);
+            }
+            .navbar-brand img {
+                height: 26px;
+                width: 26px;
+            }
+            .social-icons {
+                gap: 8px;
+            }
+            .social-icons a {
+                font-size: 0.9rem;
+            }
+            .toggle-btn {
+                padding: 3px 6px;
+                min-width: 26px;
+                border-radius: 20px;
+            }
+            .toggle-btn i {
+                font-size: 0.8rem;
+            }
+            .main-title {
+                font-size: 2.2rem;
+            }
+            .main-title::after {
+                width: 70px;
+                height: 3px;
+            }
+            .btn {
+                padding: 8px 18px;
+                font-size: 0.9rem;
+                min-width: 120px;
+            }
+            .app-item {
+                padding: 10px 12px;
+                border-radius: 12px;
+            }
+            .app-icon {
+                flex: 0 0 38px;
+                width: 38px;
+                height: 38px;
+                font-size: 1.1rem;
+                margin-right: 10px;
+                border-radius: 10px;
+            }
+            .app-icon img {
+                border-radius: 10px;
+            }
+            .app-name {
+                font-size: 0.85rem;
+            }
+            .app-desc {
+                font-size: 0.7rem;
+            }
+            .app-arrow {
+                font-size: 0.8rem;
+            }
+            .app-section {
+                padding: 0 8px;
+            }
+            footer {
+                font-size: 0.75rem;
+                padding: 14px 12px;
+            }
+        }
+
+        /* ===== 动画 ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .main-title {
+            animation: fadeInUp 0.7s ease forwards;
+        }
+        .button-container {
+            animation: fadeInUp 0.9s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== 导航栏 ===== -->
+    <nav class="navbar" id="mainNav">
+        <a href="#" class="navbar-brand" id="brandLink">
+            <img src="logo.png" alt="logo" id="brandLogo">
+            <span class="brand-text" id="brandText" data-i18n="brand">heroeggy464的个人主页</span>
+        </a>
+        <div class="navbar-controls">
+            <div class="social-icons">
+                <a href="https://www.douyin.com/user/MS4wLjABAAAA6W19rIp95N8KRKXt5BnKxieObtSAxEZLucKNTJvb-HM?from_tab_name=main" target="_blank" title="抖音">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                <a href="https://space.bilibili.com/3493118680762975?spm_id_from=333.1007.0.0" target="_blank" title="B站">
+                    <i class="fab fa-bilibili"></i>
+                </a>
+                <a href="https://github.com/heroeggy464/HanXing-Person-Website" target="_blank" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+            <div class="toggle-group">
+                <button id="langToggle" class="toggle-btn" title="切换语言">
+                    <i class="fas fa-globe"></i> <span class="btn-label" id="langLabel">中文</span>
+                </button>
+                <button id="themeToggle" class="toggle-btn" title="切换主题">
+                    <i class="fas fa-moon"></i> <span class="btn-label" id="themeLabel">深色</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== 主内容 ===== -->
+    <main class="main-content" id="mainContent">
+        <!-- 中心区域 -->
+        <div class="hero-section" id="heroSection">
+            <h1 class="main-title" data-i18n="title">heroeggy464</h1>
+            <div class="button-container">
+                <a href="https://heroeggy464.github.io/HanXing-Person-Website/library/index.html" class="btn btn-solid" data-i18n="btnLibrary">资源库</a>
+                <a href="https://www.douyin.com/user/MS4wLjABAAAA6W19rIp95N8KRKXt5BnKxieObtSAxEZLucKNTJvb-HM?from_tab_name=main" target="_blank" class="btn btn-outline" data-i18n="btnDouyin">抖音</a>
+            </div>
+        </div>
+
+        <!-- 应用列表 -->
+        <section class="app-section" id="appSection">
+            <div class="app-list">
+                <a href="#" class="app-item" target="_blank">
+                    <div class="app-icon"><img src="icon/app1.png" alt="图标" loading="lazy"></div>
+                    <div class="app-info">
+                        <div class="app-name">智能工具箱</div>
+                        <div class="app-desc">AI 驱动的效率工具集</div>
+                    </div>
+                    <div class="app-arrow"><i class="fas fa-chevron-right"></i></div>
+                </a>
+                <a href="#" class="app-item" target="_blank">
+                    <div class="app-icon"><img src="icon/app2.png" alt="图标" loading="lazy"></div>
+                    <div class="app-info">
+                        <div class="app-name">笔记星球</div>
+                        <div class="app-desc">云端协作笔记 · 灵感永存</div>
+                    </div>
+                    <div class="app-arrow"><i class="fas fa-chevron-right"></i></div>
+                </a>
+                <a href="#" class="app-item" target="_blank">
+                    <div class="app-icon"><img src="icon/app3.png" alt="图标" loading="lazy"></div>
+                    <div class="app-info">
+                        <div class="app-name">像素画板</div>
+                        <div class="app-desc">轻量级绘图 & 像素艺术</div>
+                    </div>
+             --primary-gradient: linear-gradient(135deg, #2c6b9e, #4a8ec4);
             --text-color: #e6edf5;
             --light-text: #9ab0c4;
             --border-color: #3e5062;
